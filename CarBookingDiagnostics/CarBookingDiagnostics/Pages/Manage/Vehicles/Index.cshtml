@@ -1,0 +1,100 @@
+﻿@page
+@model CarBookingDiagnostics.Pages.Manage.Vehicles.IndexModel
+
+@{
+    ViewData["Title"] = "All Vehicles";
+    <head>
+        <link rel="stylesheet" href="lib/fontawesome-free-6.5.0-web/css/all.css" /> <!-- Imports FontAwesome Icons Library -->
+    </head>
+}
+
+<head>
+    <link rel="stylesheet" href="lib/fontawesome-free-6.5.0-web/css/all.css" /> <!-- Imports FontAwesome Icons Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="..." crossorigin="anonymous">
+</head>
+
+<h1>All Vehicles</h1>
+
+<p>
+    <a class="btn btn-success" asp-page="Create"><i class="fas fa-plus"></i> Create New Vehicle</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Vehicle[0].RegistrationNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vehicle[0].Make)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vehicle[0].Model)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vehicle[0].Colour)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vehicle[0].FuelType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vehicle[0].MonthOfFirstRegistration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vehicle[0].YearOfManufacture)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vehicle[0].Wheelplan)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vehicle[0].MOTStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vehicle[0].MOTExpiryDate)
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Vehicle) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RegistrationNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Make)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Model)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Colour)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FuelType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MonthOfFirstRegistration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YearOfManufacture)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Wheelplan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MOTStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MOTExpiryDate)
+            </td>
+            <td>
+                <a class="btn btn-warning" asp-page="./Edit" asp-route-id="@item.VehicleId"><i class="fas fa-file-pen"></i> Edit</a>
+                <a class="btn btn-primary" asp-page="./Details" asp-route-id="@item.VehicleId"><i class="fa-solid fa-eye"></i> Details</a>
+                <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.VehicleId"><i class="fas fa-trash"></i> Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,96 @@
+﻿@page
+
+<head>
+    <link rel="stylesheet" href="lib/fontawesome-free-6.5.0-web/css/all.css" /> <!-- Imports FontAwesome Icons Library -->
+</head>
+
+@model AvailabilityModel
+@{
+    ViewData["Title"] = "Make a Booking";
+}
+
+<div class="p-9 mb-4 bg-light rounded">
+    <div class="container-fluid py-5">
+        <div class="text-center">
+            <h1 class="display-5 fw-bold">Your Vehicle</h1>
+            <h3 class="display-6 mb-4">@Model.Vehicle.Make @Model.Vehicle.Model @Model.Vehicle.Colour @Model.Vehicle.FuelType</h3>
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <form method="post" class="text-center">
+                        <div class="mb-3 d-flex align-items-center justify-content-center">
+                            <input type="text" readonly class="form-control-lg registration me-2" style="width:230px; height:57px;" value="@Model.Vehicle.RegistrationNumber" aria-label="VehicleRegistrationView" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <button class="btn btn-link mt-2" onclick="OnChangeVehicle()">Change Vehicle</button>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-3 border-right">
+            <h4 class="title mb-4">Vehicle Details</h4>
+            <div class="paragraph-container">
+                <p class="textbold mb-4">Make: </p><p class="textregular mb-4">@Model.Vehicle.Make</p>
+                <br />
+                <p class="textbold mb-4">Model: </p><p class="textregular mb-4">@Model.Vehicle.Model</p>
+                <br />
+                <p class="textbold mb-4">Colour: </p><p class="textregular mb-4">@Model.Vehicle.Colour</p>
+                <br />
+                <p class="textbold mb-4">Fuel Type: </p><p class="textregular mb-4">@Model.Vehicle.FuelType</p>
+                <br />
+                <p class="textbold mb-4">First Registered: </p><p class="textregular mb-4">@Model.Vehicle.MonthOfFirstRegistration</p>
+                <br />
+                <p class="textbold mb-4">Manufacture Year: </p><p class="textregular mb-4">@Model.Vehicle.YearOfManufacture</p>
+                <br />
+                <p class="textbold mb-4">Wheelplan: </p><p class="textregular mb-4">@Model.Vehicle.Wheelplan</p>
+                <br />
+                <p class="textbold mb-4">MOT Status: </p><p class="textregular mb-4">@Model.Vehicle.MOTStatus (@Model.Vehicle.MOTExpiryDate)</p>
+            </div>
+        </div>
+
+        <div class="col ps-3">
+            <div class="mb-4 ps-3">
+                <div class="progress-container">
+                    <div class="progress-bar" style="width: 64%;"></div>
+                </div>
+            </div>
+            <h4 class="title mb-4 ps-3">Book @Request.Query["issue"].ToString() Appointment</h4>
+            <h2 class="textregular mb-4 ps-3">You can book an appointment by using the dropdown menus below to select a Date and Time Slot.</h2>
+            <form method="post" class="mb-4 ps-3">
+                <label for="selectedDate">Select Date</label>
+                <select class="form-select mb-4" name="selectedDate" id="availableDateDropdown">
+                    <option value="">Select a Date</option>
+                    @foreach (var date in Model.Dates)
+                    {
+                        <option value="@date">@date</option>
+                    }
+                </select>
+                <label for="selectedTime">Select Time</label>
+                <select class="form-select mb-4" name="selectedTime" id="availableDateDropdown">
+                    <option value="">Select a Time</option>
+                    @foreach (var time in Model.Times)
+                    {
+                        <option value="@time">@time</option>
+                    }
+                </select>
+                <button type="submit" class="btn btn-success mb-4" id="bookButton">Continue</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    
+    function OnChangeVehicle() {
+        window.location.href = `/Index`;
+    }
+
+    function OnPrevious() {
+        var urlParams = new URLSearchParams(window.location.search)
+        var issue = urlParams.get('issue');
+        window.location.href = `/Diagnostics/Resolve?issue=${issue}`;
+    }
+</script>

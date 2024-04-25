@@ -1,0 +1,87 @@
+﻿@page
+
+@model RemediesModel
+@{
+    ViewData["Title"] = "Remedies";
+}
+
+<div class="p-9 mb-4 bg-light rounded">
+    <div class="container-fluid py-5">
+        <div class="text-center">
+            <h1 class="display-5 fw-bold">Your Vehicle</h1>
+            <h3 class="display-6 mb-4">@Model.Vehicle.Make @Model.Vehicle.Model @Model.Vehicle.Colour @Model.Vehicle.FuelType</h3>
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <form method="post" class="text-center">
+                        <div class="mb-3 d-flex align-items-center justify-content-center">
+                            <input type="text" readonly class="form-control-lg registration me-2" style="width:230px; height:57px;" value="@Model.Vehicle.RegistrationNumber" aria-label="VehicleRegistrationView" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <button class="btn btn-link mt-2">Change Vehicle</button>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-3 border-right">
+            <h4 class="title mb-4">Vehicle Details</h4>
+            <div class="paragraph-container">
+                <p class="textbold mb-4">Make: </p><p class="textregular mb-4">@Model.Vehicle.Make</p>
+                <br />
+                <p class="textbold mb-4">Model: </p><p class="textregular mb-4">@Model.Vehicle.Model</p>
+                <br />
+                <p class="textbold mb-4">Colour: </p><p class="textregular mb-4">@Model.Vehicle.Colour</p>
+                <br />
+                <p class="textbold mb-4">Fuel Type: </p><p class="textregular mb-4">@Model.Vehicle.FuelType</p>
+                <br />
+                <p class="textbold mb-4">First Registered: </p><p class="textregular mb-4">@Model.Vehicle.MonthOfFirstRegistration</p>
+                <br />
+                <p class="textbold mb-4">Manufacture Year: </p><p class="textregular mb-4">@Model.Vehicle.YearOfManufacture</p>
+                <br />
+                <p class="textbold mb-4">Wheelplan: </p><p class="textregular mb-4">@Model.Vehicle.Wheelplan</p>
+                <br />
+                <p class="textbold mb-4">MOT Status: </p><p class="textregular mb-4">@Model.Vehicle.MOTStatus</p>
+            </div>
+        </div>
+
+        <div class="col">
+            <h4 class="title mb-4 ps-3">You selected @Request.Query["issue"].ToString() have you got any of the following?</h4>
+            <div class="checkbox-container ps-3">
+                @foreach (var option in Model.SelectedQuestions)
+                {
+                    <div class="checkbox-item ms-3">
+                        <input type="checkbox" id="@option">
+                        <label for="@option">@option</label>
+                    </div>
+                }
+                <div class="checkbox-item pt-3">
+                    <button type="button" class="btn btn-warning" onclick="OnPrevious()">Previous</button>
+                    <button type="button" class="btn btn-success" onclick="OnNext()">Next</button>
+                </div>
+            </div>
+
+            <!-- TO DO: Complete the conditional remedy tool -->
+        </div>
+    </div>
+</div>
+
+<script>
+    function OnChangeVehicle() {
+        window.location.href = `/Index`;
+    }
+
+    function OnPrevious() {
+        var urlParams = new URLSearchParams(window.location.search)
+        var issue = urlParams.get('issue');
+        window.location.href = `/Diagnostics/Identification?issue=${issue}`;
+    }
+
+    function OnNext() {
+        var urlParams = new URLSearchParams(window.location.search)
+        var issue = urlParams.get('issue');
+        window.location.href = `/Diagnostics/Resolve?issue=${issue}`;
+    }
+</script>

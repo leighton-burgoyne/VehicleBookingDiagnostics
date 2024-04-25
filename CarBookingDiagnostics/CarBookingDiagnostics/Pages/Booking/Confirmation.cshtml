@@ -1,0 +1,68 @@
+﻿@page
+
+<head>
+    <link rel="stylesheet" href="lib/fontawesome-free-6.5.0-web/css/all.css" /> <!-- Imports FontAwesome Icons Library -->
+</head>
+
+@model ConfirmationModel
+@{
+    ViewData["Title"] = "Booking Confirmation";
+}
+
+<div class="p-9 mb-4 bg-light rounded">
+    <div class="container-fluid py-5">
+        <div class="text-center">
+            <h1 class="display-5 fw-bold">Booking Confirmation</h1>
+            <h3 class="display-6 mb-4">Reference Number: @Model.BookingId</h3>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-3 border-right">
+            <h4 class="title mb-4">Vehicle Details</h4>
+            <div class="paragraph-container">
+                <p class="textbold mb-4">Make: </p><p class="textregular mb-4">@Model.Vehicle.Make</p>
+                <br />
+                <p class="textbold mb-4">Model: </p><p class="textregular mb-4">@Model.Vehicle.Model</p>
+                <br />
+                <p class="textbold mb-4">Colour: </p><p class="textregular mb-4">@Model.Vehicle.Colour</p>
+                <br />
+                <p class="textbold mb-4">Fuel Type: </p><p class="textregular mb-4">@Model.Vehicle.FuelType</p>
+                <br />
+                <p class="textbold mb-4">First Registered: </p><p class="textregular mb-4">@Model.Vehicle.MonthOfFirstRegistration</p>
+                <br />
+                <p class="textbold mb-4">Manufacture Year: </p><p class="textregular mb-4">@Model.Vehicle.YearOfManufacture</p>
+                <br />
+                <p class="textbold mb-4">Wheelplan: </p><p class="textregular mb-4">@Model.Vehicle.Wheelplan</p>
+                <br />
+                <p class="textbold mb-4">MOT Status: </p><p class="textregular mb-4">@Model.Vehicle.MOTStatus (@Model.Vehicle.MOTExpiryDate)</p>
+            </div>
+            <h4 class="title mb-4">Appointment Details</h4>
+            <div class="paragraph-container">
+                <p class="textbold mb-4">Date: </p><p class="textregular mb-4">@Model.SelectedDate</p>
+                <br />
+                <p class="textbold mb-4">Time: </p><p class="textregular mb-4">@Model.SelectedTime</p>
+            </div>
+        </div>
+
+        <div class="col ps-3">
+            <div class="mb-4 ps-3">
+                <div class="progress-container">
+                    <div class="progress-bar" style="width: 100%;"></div>
+                </div>
+            </div>
+            <h4 class="title mb-4 ps-3">Your @Model.Issue Appointment has been booked!</h4>
+            <h2 class="textregular mb-4 ps-3">Your Appointment has been booked in with one of our Mechanics on @Model.SelectedDate at @Model.SelectedTime to look at your @Model.Issue - @Model.SelectedOptions issue(s). Please take a screenshot or print out a copy of this page for your own reference.</h2>
+            <h2 class="textregular mb-4 ps-3">Please read the following important information:</h2>
+            <ul class="textregular mb-4 ps-3">
+                <li class="textregular">Ensure you arrive at least 10 minutes prior to your Booking.</li>
+                <li class="textregular">Ensure you bring any required accessories - like locking wheel nut key, spare keys, etc.</li>
+                <li class="textregular">Keep us aware of any changes in your ability to attend the Booking, or any changes to the Vehicle Problem.</li>
+            </ul>
+            <h4 class="title mb-4 ps-3">Making Changes</h4>
+            <h2 class="textregular mb-4 ps-3">If you need to amend or cancel your Booking or inform us of any changes, please contact the Garage on Telephone Number 01282 123456.</h2>
+        </div>
+    </div>
+</div>

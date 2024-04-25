@@ -1,0 +1,168 @@
+﻿@page
+
+<head>
+    <link rel="stylesheet" href="lib/fontawesome-free-6.5.0-web/css/all.css" /> <!-- Imports FontAwesome Icons Library -->
+</head>
+
+@model DetailsModel
+@{
+    ViewData["Title"] = "Booking Details";
+}
+
+<div class="p-9 mb-4 bg-light rounded">
+    <div class="container-fluid py-5">
+        <div class="text-center">
+            <h1 class="display-5 fw-bold">Your Vehicle</h1>
+            <h3 class="display-6 mb-4">@Model.Vehicle.Make @Model.Vehicle.Model @Model.Vehicle.Colour @Model.Vehicle.FuelType</h3>
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <form method="post" class="text-center">
+                        <div class="mb-3 d-flex align-items-center justify-content-center">
+                            <input type="text" readonly class="form-control-lg registration me-2" style="width:230px; height:57px;" value="@Model.Vehicle.RegistrationNumber" aria-label="VehicleRegistrationView" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <button class="btn btn-link mt-2" onclick="OnChangeVehicle()">Change Vehicle</button>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-3 border-right">
+            <h4 class="title mb-4">Vehicle Details</h4>
+            <div class="paragraph-container">
+                <p class="textbold mb-4">Make: </p><p class="textregular mb-4">@Model.Vehicle.Make</p>
+                <br />
+                <p class="textbold mb-4">Model: </p><p class="textregular mb-4">@Model.Vehicle.Model</p>
+                <br />
+                <p class="textbold mb-4">Colour: </p><p class="textregular mb-4">@Model.Vehicle.Colour</p>
+                <br />
+                <p class="textbold mb-4">Fuel Type: </p><p class="textregular mb-4">@Model.Vehicle.FuelType</p>
+                <br />
+                <p class="textbold mb-4">First Registered: </p><p class="textregular mb-4">@Model.Vehicle.MonthOfFirstRegistration</p>
+                <br />
+                <p class="textbold mb-4">Manufacture Year: </p><p class="textregular mb-4">@Model.Vehicle.YearOfManufacture</p>
+                <br />
+                <p class="textbold mb-4">Wheelplan: </p><p class="textregular mb-4">@Model.Vehicle.Wheelplan</p>
+                <br />
+                <p class="textbold mb-4">MOT Status: </p><p class="textregular mb-4">@Model.Vehicle.MOTStatus (@Model.Vehicle.MOTExpiryDate)</p>
+            </div>
+            <h4 class="title mb-4">Appointment Details</h4>
+            <div class="paragraph-container">
+                <p class="textbold mb-4">Date: </p><p class="textregular mb-4">@Model.SelectedDate</p>
+                <br />
+                <p class="textbold mb-4">Time: </p><p class="textregular mb-4">@Model.SelectedTime</p>
+                <br />
+                <p class="textbold mb-4">Type: </p><p class="textregular mb-4">@Model.Issue</p>
+            </div>
+        </div>
+
+        <div class="col ps-3">
+            <div class="mb-4 ps-3">
+                <div class="progress-container">
+                    <div class="progress-bar" style="width: 80%;"></div>
+                </div>
+            </div>
+            <h4 class="title mb-4 ps-3">Your Personal Details</h4>
+            <h2 class="textregular mb-4 ps-3">As part of the Booking Process, we need to collect some Personal Details to facilitate the delivery of our services to you, for example so we are able to contact you.</h2>
+            <form method="post" class="mb-4 ps-3">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Customer.FirstName">First Name</label>
+                            <input asp-for="Customer.FirstName" class="form-control" />
+                            <span asp-validation-for="Customer.FirstName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-4">
+                            <label asp-for="Customer.LastName">Last Name</label>
+                            <input asp-for="Customer.LastName" class="form-control" />
+                            <span asp-validation-for="Customer.LastName" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-4">
+                            <label asp-for="Customer.AddressLine1">Address Line 1</label>
+                            <input asp-for="Customer.AddressLine1" class="form-control" />
+                            <span asp-validation-for="Customer.AddressLine1" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-4">
+                            <label asp-for="Customer.AddressLine2">Address Line 2</label>
+                            <input asp-for="Customer.AddressLine2" class="form-control" />
+                            <span asp-validation-for="Customer.AddressLine2" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-4">
+                            <label asp-for="Customer.TownCity">Town / City</label>
+                            <input asp-for="Customer.TownCity" class="form-control" />
+                            <span asp-validation-for="Customer.TownCity" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-4">
+                            <label asp-for="Customer.Postcode">Postcode</label>
+                            <input asp-for="Customer.Postcode" class="form-control" />
+                            <span asp-validation-for="Customer.Postcode" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-4">
+                            <label asp-for="Customer.County">County</label>
+                            <input asp-for="Customer.County" class="form-control" />
+                            <span asp-validation-for="Customer.County" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-4">
+                            <label asp-for="Customer.EmailAddress">Email Address</label>
+                            <input asp-for="Customer.EmailAddress" class="form-control" />
+                            <span asp-validation-for="Customer.EmailAddress" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-4">
+                            <label asp-for="Customer.PhoneNumber">Phone Number</label>
+                            <input asp-for="Customer.PhoneNumber" class="form-control" />
+                            <span asp-validation-for="Customer.PhoneNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success mb-4 ps-3" id="bookButton">Book Appointment</button>
+                <h2 class="textregular mb-4 ps-3">By clicking ‘Book’ you agree to the Terms and Conditions</h2>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<script>
+
+    function OnChangeVehicle() {
+        window.location.href = `/Index`;
+    }
+
+    function OnPrevious() {
+        var urlParams = new URLSearchParams(window.location.search)
+        var issue = urlParams.get('issue');
+        window.location.href = `/Diagnostics/Resolve?issue=${issue}`;
+    }
+</script>

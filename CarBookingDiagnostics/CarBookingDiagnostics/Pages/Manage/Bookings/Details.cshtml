@@ -1,0 +1,55 @@
+﻿@page
+@model CarBookingDiagnostics.Pages.Manage.Bookings.DetailsModel
+
+@{
+    ViewData["Title"] = "Booking Details " + "(" + Model.Booking.BookingId + ")";
+}
+
+<h1>Booking Details</h1>
+
+<div>
+    <h4>Booking Reference: @Model.Booking.BookingId</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Booking.Type)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Booking.Type)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Booking.Date)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Booking.Date)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Booking.Time)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Booking.Time)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Booking.Problems)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Booking.Problems)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Booking.Customer)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Booking.Customer.FirstName) @Html.DisplayFor(model => model.Booking.Customer.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Booking.Vehicle)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Booking.Vehicle.RegistrationNumber) @Html.DisplayFor(model => model.Booking.Vehicle.Make) @Html.DisplayFor(model => model.Booking.Vehicle.Model)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-warning" asp-page="./Edit" asp-route-id="@Model.Booking.BookingId"><i class="fas fa-file-pen"></i> Edit</a>
+    <a class="btn btn-success" asp-page="./Index" asp-route-id="@Model.Booking.BookingId"><i class="fas fa-backward-step"></i> Back</a>
+</div>

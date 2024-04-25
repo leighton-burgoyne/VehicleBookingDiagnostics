@@ -1,0 +1,79 @@
+﻿@page
+@model CarBookingDiagnostics.Pages.Manage.Bookings.IndexModel
+
+@{
+    ViewData["Title"] = "All Bookings";
+}
+
+<head>
+    <link rel="stylesheet" href="lib/fontawesome-free-6.5.0-web/css/all.css" /> <!-- Imports FontAwesome Icons Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="..." crossorigin="anonymous">
+</head>
+
+<h1>All Bookings</h1>
+
+<p>
+    <a class="btn btn-success" asp-page="Create"><i class="fas fa-plus"></i> Create New Booking</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Booking[0].BookingId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Booking[0].Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Booking[0].Time)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Booking[0].Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Booking[0].Problems)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Booking[0].Customer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Booking[0].Vehicle)
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Booking) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookingId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Problems)
+            </td>
+            <td>
+                <a asp-page="../Customers/Details" asp-route-id="@item.Customer.CustomerId">@Html.DisplayFor(modelItem => item.Customer.FirstName) @Html.DisplayFor(modelItem => item.Customer.LastName)</a>
+            </td>
+            <td>
+                <a asp-page="../Vehicles/Details" asp-route-id="@item.Vehicle.VehicleId">@Html.DisplayFor(modelItem => item.Vehicle.RegistrationNumber) (@Html.DisplayFor(modelItem => item.Vehicle.Make) @Html.DisplayFor(modelItem => item.Vehicle.Model))</a>
+            </td>
+            <td>
+                <a class="btn btn-warning" asp-page="./Edit" asp-route-id="@item.BookingId"><i class="fas fa-file-pen"></i> Edit</a>
+                <a class="btn btn-primary" asp-page="./Details" asp-route-id="@item.BookingId"><i class="fa-solid fa-eye"></i> Details</a>
+                <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.BookingId"><i class="fas fa-trash"></i> Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

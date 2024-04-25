@@ -1,0 +1,133 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Getting Started";
+}
+
+<div class="p-9 mb-4 bg-light rounded">
+    <div class="container-fluid py-5">
+        <div class="text-center">
+            <h1 class="display-5 fw-bold">Let's get your vehicle back on the road...</h1>
+            <h3 class="display-6 mb-4">Enter your Registration Plate</h3>
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <form method="post" class="text-center">
+                        <div class="mb-3 d-flex align-items-center justify-content-center">
+                            <input type="text" asp-for="VehicleRegistration" class="form-control-lg registration me-2" style="width:230px; height:57px;" placeholder="XXXX XXX" aria-label="VehicleRegistrationInput" />
+                            <button class="btn btn-outline-primary search" type="submit" name="VehicleRegistration"><i class="fa-solid fa-magnifying-glass fa-align-center"></i></button>
+                        </div>
+                        @if (!ModelState.IsValid)
+                        {
+                            <div class="text-danger">
+                                @foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                                {
+                                    <span>@error.ErrorMessage</span>
+                                }
+                            </div>
+                        }
+                    </form>
+                </div>
+            </div>
+            <!-- <button class="btn btn-link mt-2" onclick="OnManualClick()">Manually enter Vehicle Details</button> -->
+        </div>
+    </div>
+</div>
+           
+
+<div class="container-fluid">
+    <h1 class="display-6 text-center mb-4">Our Services</h1>
+    <div class="row">
+        <div class="col-md-3 mb-3">
+            <div class="card">
+                <img src="/assets/MOTServicingCover.png" class="card-img-top">
+                <div class="card-body text-center">
+                    <h5 class="card-title fw-bold">MOT & Servicing</h5>
+                    <hr />
+                    <p class="card-text">from £70</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card">
+                <img src="/assets/RepairsCover.png" class="card-img-top">
+                <div class="card-body text-center">
+                    <h5 class="card-title fw-bold">Repairs</h5>
+                    <hr />
+                    <p class="card-text">from £25</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card">
+                <img src="/assets/TyresCover.png" class="card-img-top">
+                <div class="card-body text-center">
+                    <h5 class="card-title fw-bold">Tyres</h5>
+                    <hr />
+                    <p class="card-text">from £95</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card">
+                <img src="/assets/BodyworkCover.png" class="card-img-top">
+                <div class="card-body text-center">
+                    <h5 class="card-title fw-bold">Bodywork</h5>
+                    <hr />
+                    <p class="card-text">from £102</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="manualDetailsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Vehicle Details</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="registration-plate" class="col-form-label">Registration Plate:</label>
+                        <input type="text" class="form-control registration-small" id="registration-plate">
+                    </div>
+                    <div class="mb-3">
+                        <label for="make" class="col-form-label">Make:</label>
+                        <input type="text" class="form-control" id="make">
+                    </div>
+                    <div class="mb-3">
+                        <label for="model" class="col-form-label">Model:</label>
+                        <input type="text" class="form-control" id="model">
+                    </div>
+                    <div class="mb-3">
+                        <label for="colour" class="col-form-label">Colour:</label>
+                        <input type="text" class="form-control" id="colour">
+                    </div>
+                    <div class="mb-3">
+                        <label for="fueltype" class="col-form-label">Fuel Type:</label>
+                        <input type="text" class="form-control" id="fueltype">
+                    </div>
+                    <div class="mb-3">
+                        <label for="motexpirydate" class="col-form-label">MOT Expiry Date:</label>
+                        <input type="date" class="form-control" id="motexpirydate">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Set Vehicle Details</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function OnManualClick() {
+        $('#manualDetailsModal').modal('show');
+    }   
+</script>

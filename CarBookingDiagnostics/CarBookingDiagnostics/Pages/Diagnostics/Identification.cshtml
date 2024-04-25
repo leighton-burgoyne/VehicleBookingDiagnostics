@@ -1,0 +1,91 @@
+﻿@page
+
+@model IdentificationModel
+@{
+    ViewData["Title"] = "Identification";
+}
+
+<div class="p-9 mb-4 bg-light rounded">
+    <div class="container-fluid py-5">
+        <div class="text-center">
+            <h1 class="display-5 fw-bold">Your Vehicle</h1>
+            <h3 class="display-6 mb-4">@Model.Vehicle.Make @Model.Vehicle.Model @Model.Vehicle.Colour @Model.Vehicle.FuelType</h3>
+            <div class="row justify-content-center">
+                <d class="col-md-6">
+                    <form method="post" class="text-center">
+                        <div class="mb-3 d-flex align-items-center justify-content-center">
+                            <input type="text" readonly class="form-control-lg registration me-2" style="width:230px; height:57px;" value="@Model.Vehicle.RegistrationNumber" aria-label="VehicleRegistrationView" />
+                        </div>
+                    </form>
+                </d iv>
+            </div>
+            <button class="btn btn-link mt-2" onclick="OnChangeVehicle()">Change Vehicle</button>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-3 border-right">
+            <h4 class="title mb-4">Vehicle Details</h4>
+            <div class="paragraph-container">
+                <p class="textbold mb-4">Make: </p><p class="textregular mb-4">@Model.Vehicle.Make</p>
+                <br />
+                <p class="textbold mb-4">Model: </p><p class="textregular mb-4">@Model.Vehicle.Model</p>
+                <br />
+                <p class="textbold mb-4">Colour: </p><p class="textregular mb-4">@Model.Vehicle.Colour</p>
+                <br />
+                <p class="textbold mb-4">Fuel Type: </p><p class="textregular mb-4">@Model.Vehicle.FuelType</p>
+                <br />
+                <p class="textbold mb-4">First Registered: </p><p class="textregular mb-4">@Model.Vehicle.MonthOfFirstRegistration</p>
+                <br />
+                <p class="textbold mb-4">Manufacture Year: </p><p class="textregular mb-4">@Model.Vehicle.YearOfManufacture</p>
+                <br />
+                <p class="textbold mb-4">Wheelplan: </p><p class="textregular mb-4">@Model.Vehicle.Wheelplan</p>
+                <br />
+                <p class="textbold mb-4">MOT Status: </p><p class="textregular mb-4">@Model.Vehicle.MOTStatus (@Model.Vehicle.MOTExpiryDate)</p>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="mb-4 ps-3">
+                <div class="progress-container">
+                    <div class="progress-bar" style="width: 32%;"></div>
+                </div>
+            </div>
+            <h4 class="title mb-2 ps-3">You selected @Request.Query["issue"].ToString(), has your @Model.Vehicle.Make @Model.Vehicle.Model got any of the following symptoms?</h4>
+            <p class="textregular mb-4 ps-3">Please select any applicable options:</p>
+            <div class="checkbox-container ps-3">
+                <form id="identificationForm" method="post">
+                @foreach (var option in Model.SelectedQuestions)
+                {
+                    <div class="checkbox-item ms-3">
+                        <input type="checkbox" id="@option" name="SelectedOptions" value="@option">
+                        <label for="@option">@option</label>
+                    </div>
+                }
+                <div class="checkbox-item pt-3">
+                    <button type="button" class="btn btn-warning" onclick="OnPrevious()">Back</button>
+                    <button type="submit" class="btn btn-success">Submit</button> <!-- Previously set to OnNext() -->
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function OnChangeVehicle(){
+        window.location.href = `/Index`;
+    }
+
+    function OnPrevious() {
+        window.location.href = `/VehicleDetails`;
+    }
+
+    function OnNext() {
+        var urlParams = new URLSearchParams(window.location.search)
+        var issue = urlParams.get('issue');
+        window.location.href = `/Diagnostics/Resolve?issue=${issue}`;
+    }
+</script>
